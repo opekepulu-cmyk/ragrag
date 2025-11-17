@@ -1,26 +1,26 @@
 # Advanced Layer 7 DDoS Stress Test Tool
 
 ## Overview
-Powerful HTTP Layer 7 stress testing tool dengan kemampuan **bypass Cloudflare & OVH** dan bandwidth besar.
+Powerful HTTP Layer 7 stress testing tool with **Cloudflare & OVH bypass capabilities** and high bandwidth support.
 
 ## Features
 
 ### 🔥 Attack Methods
-- **GET Flood**: GET requests dengan large payloads
-- **POST Chunked**: POST dengan chunked transfer encoding (bypass-friendly)
-- **Range Request**: HTTP Range requests untuk partial content
+- **GET Flood**: GET requests with large payloads
+- **POST Chunked**: POST with chunked transfer encoding (bypass-friendly)
+- **Range Request**: HTTP Range requests for partial content
 - **Pipeline**: HTTP/1.1 connection pipelining
 - **Slowloris**: Slow header attack (connection exhaustion)
 - **Slow POST**: Slow body upload (resource exhaustion)
-- **Large Headers**: Request dengan oversized headers
+- **Large Headers**: Requests with oversized headers
 - **Connection Reuse**: Keep-alive connection pooling
-- **Mixed**: Random combination dari semua methods
+- **Mixed**: Random combination of all methods
 
 ### 🛡️ Bypass Modes
 
 #### Cloudflare Bypass
 - `CF-Connecting-IP`: Random IP spoofing
-- `X-Forwarded-For`: Multiple IP headers dengan random values
+- `X-Forwarded-For`: Multiple IP headers with random values
 - `X-Real-IP`: Real IP spoofing
 - `CF-IPCountry`: Country header spoofing
 
@@ -35,8 +35,8 @@ Powerful HTTP Layer 7 stress testing tool dengan kemampuan **bypass Cloudflare &
 - Random IP in multiple headers
 
 ### 📊 Performance Features
-- **Connection Pooling**: Reuse connections untuk efficiency
-- **HTTP/2 Support**: Multiplexing untuk bandwidth besar
+- **Connection Pooling**: Reuse connections for efficiency
+- **HTTP/2 Support**: Multiplexing for high bandwidth
 - **Payload Control**: 1-10000 KB per request
 - **Auto Retry**: Automatic retry mechanism (default: 3 retries)
 - **User-Agent Randomization**: Multiple realistic user agents
@@ -189,7 +189,7 @@ Cloudflare blocks requests by checking:
 **Bypass Strategy**:
 - Rotate IP addresses with CF-Connecting-IP, X-Forwarded-For
 - Use realistic User-Agent strings (randomized)
-- Vary request patterns dengan mixed methods
+- Vary request patterns with mixed methods
 - Distribute connections
 
 ### OVH DDoS Protection

